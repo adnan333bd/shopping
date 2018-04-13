@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <form action="">
+    <form (ngSubmit)="onSubmitItem(shoppingItemForm)" #shoppingItemForm="ngForm" >
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -8,7 +8,9 @@
             type="text"
             id="name"
             class="form-control"
-            #nameInput
+            name="name"
+            ngModel
+            required
           >
         </div>
         <div class="col-sm-2 form-group">
@@ -17,15 +19,20 @@
             type="number"
             id="amount"
             class="form-control"
-            #amountInput
+            name="amount"
+            ngModel
+            required
+            [pattern]="'^[1-9]+[0-9]*$'"
           >
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" (click)="addNewIngredient()" type="button">Add</button>
-          <button type="button" class="btn btn-danger">Delete</button>
-          <button class="btn btn-primary" type="button"> Clear</button>
+          <button class="btn btn-success" type="submit"
+                  [disabled]="!shoppingItemForm.valid">{{ edit_mode ? "Update" : "Add"}}</button>
+          <button type="button" class="btn btn-danger"
+                  [disabled]="selectedItemIndex == -1" (click)="onDelete()">Delete</button>
+          <button class="btn btn-primary" type="button" (click)="onClear()"> Clear</button>
         </div>
       </div>
     </form>
