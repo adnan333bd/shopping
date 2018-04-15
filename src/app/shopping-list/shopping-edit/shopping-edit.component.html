@@ -31,7 +31,7 @@
           <button class="btn btn-success" type="submit"
                   [disabled]="!shoppingItemForm.valid">{{ edit_mode ? "Update" : "Add"}}</button>
           <button type="button" class="btn btn-danger"
-                  [disabled]="selectedItemIndex == -1" (click)="onDelete()">Delete</button>
+                  *ngIf="selectedItemIndex != -1" (click)="onDelete()">Delete</button>
           <button class="btn btn-primary" type="button" (click)="onClear()"> Clear</button>
         </div>
       </div>

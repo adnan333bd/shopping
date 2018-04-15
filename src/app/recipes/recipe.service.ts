@@ -2,9 +2,14 @@ import {Recipe} from './recipe.model';
 import {Injectable} from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import {Subject} from 'rxjs/Subject';
+import _cloneDeep = require('lodash/cloneDeep');
 
 @Injectable()
 export class RecipeService {
+
+  public recipesChanged: Subject<Recipe[]>;
+
   private recipes: Recipe[] = [
     new Recipe('Tandori Chicken',
       'Spicy Tandori',
@@ -29,10 +34,11 @@ export class RecipeService {
   ];
 
   constructor(private shoppingListService: ShoppingListService) {
+    this.recipesChanged = new Subject<Recipe[]>();
   }
 
   getRecipes() {
-    return this.recipes.slice();
+    return _cloneDeep(this.recipes);
   }
 
   getRecipe(index: number) {
@@ -41,5 +47,24 @@ export class RecipeService {
 
   addIngredientsToShoppingList(recipe: Recipe) {
     this.shoppingListService.addIngredients(recipe.ingredients);
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.notifyRecipesChange();
+  }
+
+  updateRecipe(index: number, recipe: Recipe) {
+    this.recipes[index] = {...recipe};
+    this.notifyRecipesChange();
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.notifyRecipesChange();
+  }
+
+  private notifyRecipesChange() {
+    this.recipesChanged.next(_cloneDeep(this.recipes));
   }
 }
