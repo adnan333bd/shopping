@@ -37,6 +37,11 @@ export class RecipeService {
     this.recipesChanged = new Subject<Recipe[]>();
   }
 
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.notifyRecipesChange();
+  }
+
   getRecipes() {
     return _cloneDeep(this.recipes);
   }
