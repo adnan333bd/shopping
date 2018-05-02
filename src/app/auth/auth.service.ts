@@ -34,7 +34,6 @@ export class AuthService {
     return firebase.auth().signInWithEmailAndPassword(email, password)
       .then(response => {
           this.router.navigate(['/']);
-          this.getToken();
           return response;
         }
       )
@@ -59,7 +58,6 @@ export class AuthService {
 
   logout() {
     firebase.auth().signOut();
-    this.token = null;
     this.router.navigate(['/signin']);
   }
 }
