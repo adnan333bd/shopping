@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 import {RecipeEditComponent} from './recipe-edit/recipe-edit.component';
 import {RecipesComponent} from './recipes.component';

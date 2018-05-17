@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs/Subject';
-import _cloneDeep = require('lodash/cloneDeep');
+import cloneDeep from 'lodash-es/cloneDeep';
 
 @Injectable()
 export class RecipeService {
@@ -43,7 +43,7 @@ export class RecipeService {
   }
 
   getRecipes() {
-    return _cloneDeep(this.recipes);
+    return cloneDeep<Recipe[]>(this.recipes);
   }
 
   getRecipe(index: number) {
@@ -70,6 +70,6 @@ export class RecipeService {
   }
 
   private notifyRecipesChange() {
-    this.recipesChanged.next(_cloneDeep(this.recipes));
+    this.recipesChanged.next(cloneDeep<Recipe[]>(this.recipes));
   }
 }

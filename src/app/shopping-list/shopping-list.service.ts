@@ -1,6 +1,7 @@
 import {Ingredient} from '../shared/ingredient.model';
 import {Subject} from 'rxjs/Subject';
-import _cloneDeep = require('lodash/cloneDeep');
+
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
@@ -15,7 +16,7 @@ export class ShoppingListService {
   }
 
   getIngredients(): Ingredient[] {
-    return _cloneDeep(this.ingredients);
+    return cloneDeep<Ingredient[]>(this.ingredients);
   }
 
   getIngredient(index: number): Ingredient {
@@ -28,7 +29,7 @@ export class ShoppingListService {
   }
 
   addIngredients(ingredients: Ingredient[]) {
-    this.ingredients.push(..._cloneDeep(ingredients));
+    this.ingredients.push(...cloneDeep<Ingredient[]>(ingredients));
     this.notifyIngredientsChanged();
   }
 
@@ -45,7 +46,7 @@ export class ShoppingListService {
 
 
   private notifyIngredientsChanged() {
-    this.ingredientsChanged.next(_cloneDeep(this.ingredients));
+    this.ingredientsChanged.next(cloneDeep<Ingredient[]>(this.ingredients));
   }
 
 }
