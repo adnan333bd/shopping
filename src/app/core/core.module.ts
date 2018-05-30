@@ -8,6 +8,8 @@ import {AuthService} from '../auth/auth.service';
 import {DataStorageService} from '../shared/data-storage.service';
 import {AuthGuardService} from '../auth/auth-guard.service';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import {httpInterceptors} from '../shared/http-interceptors';
+import {MessageService} from '../shared/message.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {ShoppingListService} from '../shopping-list/shopping-list.service';
     RecipeService,
     DataStorageService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    httpInterceptors,
+    MessageService
   ]
 })
 export class CoreModule {}

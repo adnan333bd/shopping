@@ -5,7 +5,11 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class AuthService {
 
-  private token: string;
+  public _token: string;
+
+  get token(): string {
+    return this._token;
+  }
 
   constructor(private router: Router) {
   }
@@ -16,7 +20,7 @@ export class AuthService {
         if (user) {
           this.getToken();
         } else {
-          this.token = null;
+          this._token = null;
         }
       }
     );
@@ -40,14 +44,14 @@ export class AuthService {
       .catch(error => console.log(error));
   }
 
-  getToken(): Promise<string> {
+  private getToken(): Promise<string> {
     const user = firebase.auth().currentUser;
     if (user == null) {
       return Promise.resolve(null);
     }
     return user.getIdToken()
       .then((token: string) => {
-        this.token = token;
+        this._token = token;
         return token;
       });
   }

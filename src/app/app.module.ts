@@ -14,13 +14,12 @@ import {CoreModule} from './core/core.module';
   ],
   imports: [
     BrowserModule,
-    CoreModule,
     HttpClientModule,
+    CoreModule,
     ShoppingListModule,
     AuthModule
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
