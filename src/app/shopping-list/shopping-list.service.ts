@@ -15,17 +15,8 @@ export class ShoppingListService {
   constructor() {
   }
 
-  getIngredients(): Ingredient[] {
-    return cloneDeep<Ingredient[]>(this.ingredients);
-  }
-
   getIngredient(index: number): Ingredient {
     return {...this.ingredients[index]};
-  }
-
-  addIngredient(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
-    this.notifyIngredientsChanged();
   }
 
   addIngredients(ingredients: Ingredient[]) {

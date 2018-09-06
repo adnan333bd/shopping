@@ -4,6 +4,8 @@ import {Ingredient} from '../shared/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs/Subject';
 import cloneDeep from 'lodash-es/cloneDeep';
+import {Store} from '@ngrx/store';
+import {AddIngredients, ShoppingListAction} from '../shopping-list/store/shopping-list.action';
 
 @Injectable()
 export class RecipeService {
@@ -33,7 +35,7 @@ export class RecipeService {
       ])
   ];
 
-  constructor(private shoppingListService: ShoppingListService) {
+  constructor(private shoppingListService: ShoppingListService, private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {
     this.recipesChanged = new Subject<Recipe[]>();
   }
 
@@ -51,7 +53,7 @@ export class RecipeService {
   }
 
   addIngredientsToShoppingList(recipe: Recipe) {
-    this.shoppingListService.addIngredients(recipe.ingredients);
+    this.store.dispatch(new AddIngredients(recipe.ingredients));
   }
 
   addRecipe(recipe: Recipe) {
